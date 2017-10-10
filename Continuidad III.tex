@@ -1,0 +1,216 @@
+%%
+% Modificación de una plantilla de Latex para adaptarla al castellano.
+%%
+
+%%%%%%%%%%%%%%%%%%%%%
+% Thin Sectioned Essay
+% LaTeX Template
+% Version 1.0 (3/8/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Author:
+% Nicolas Diaz (nsdiaz@uc.cl) with extensive modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper, 11pt]{article} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+% sudo apt-get install texlive-lang-spanish
+\usepackage[spanish]{babel} % English language/hyphenation
+\selectlanguage{spanish}
+% Hay que pelearse con babel-spanish para el alineamiento del punto decimal
+\decimalpoint
+
+% Símbolos matemáticos
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{accents}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\usepackage[T1]{fontenc} % Required for accented characters
+
+\makeatletter
+\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
+
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+\begin{flushright} % Right align
+{\LARGE\@title} % Increase the font size of the title
+
+\vspace{50pt} % Some vertical space between the title and author name
+
+{\large\@author} % Author name
+\\\@date % Date
+
+\vspace{40pt} % Some vertical space between the author block and abstract
+\end{flushright}
+}
+\makeatother
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\title{\textbf{Relación de ejercicios de Continuidad.}\\ % Title
+3ª parte} % Subtitle
+
+\author{\textsc{Óscar Bermúdez} % Author
+\\{\textit{Universidad de Granada}}} % Institution
+
+\date{\today} % Date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+\begin{enumerate}
+	\item Sea $F = (f_1, f_2, \dots, f_M): A \rightarrow \mathbb{R}^M$ un campo vectorial de $N$ variables. Probad que:
+	\begin{enumerate}[label=\alph*)]
+		\item $F$ es continuo en $a \in A$ $\Leftrightarrow$ cada uno de los campos escalares $f_k(k = 1, 2 ,\dots,N)$ es continuo en $a$.
+		\begin{proof}
+			\fbox{$\Rightarrow$} Si $F$ es continuo en a se tiene:
+			
+			$\forall \varepsilon > 0$ $\exists \delta > 0$ / $||x-a|| < \delta$ y $x \in A \Rightarrow ||F(x)-F(a)||_\infty < \varepsilon \Rightarrow \forall i = 1,2,\dots,N$ $||f_i(x)-f_i(a)|| \le ||F(x)-F(a)||_\infty < \varepsilon \Rightarrow \forall i = 1,2,\dots,N$ $f_i$ es continua en a.
+			
+			\fbox{$\Leftarrow$} Si $\forall i = 1,2,\dots, N$ $f_i$ es continua en a se tiene:
+			
+			$\forall i = 1,2,\dots,N$ $\forall \varepsilon > 0$ $\exists \delta_i > 0$ / $||x-a|| < \delta_i$ y $x \in A \Rightarrow \forall i = 1,2,\dots,N$ $||f_i(x)-f_i(a)|| < \displaystyle{\frac{\varepsilon}{N}}$.
+			
+			Tomando $\delta = \min\{\delta_i: \forall i = 1,2,\dots,N\}$, se cumple $\forall \varepsilon > 0$ $||F(x)-F(a)|| \le N \cdot ||f_m(x)-f_m(a)|| < \varepsilon$ siendo $m$ tal que $||f_m(x)-f_m(a)|| = \max \{||f_k(x)-f_k(a)||: k = 1,2,\dots,N\}$.
+		\end{proof}
+		\item $\lim\limits_{x \rightarrow a} F(x) = \beta = (\beta_1, \beta_2, \dots, \beta_M) \Leftrightarrow \lim\limits_{x \rightarrow a} f_k(x) = \beta_k \; \forall k = 1, 2, \dots, M$.
+		\begin{proof}
+			Incompleto.
+			\fbox{$\Rightarrow$}\\
+			\fbox{$\Leftarrow$}
+		\end{proof}
+	\end{enumerate}
+	\item Sea $F: A \rightarrow \mathbb{R}^M$ un campo vectorial continuo de $N$ variables. Probad para un conjunto conexo $K \subset A$ que el conjunto
+	\begin{center}
+		$\{(x,F(x)): x \in K\} \subset \mathbb{R}^N \times \mathbb{R}^M$
+	\end{center}
+	es conexo.
+	\begin{proof}
+		Por el teorema de conservación de la conexión por la continuidad\footnote{<<Sean $E, F$ dos espacios métricos y $\emptyset \neq C \subset E$ subconjunto conexose dice que $C$ es un conjunto conexo y $f: C \rightarrow F$ continua. Entonces, $f(C)$ es conexo.>>}, se tiene que $F(K)$ es conexo.
+		Como vimos en el ejercicio 10, si $A$ y $B$ son conexos, $A \times B$ es conexo.
+		Luego, $\{(x,F(x)): x \in K\}$ es conexo.
+	\end{proof}
+	\item (Lema de conservación del signo) Sea $F:A \rightarrow \mathbb{R}^M$ un campo vectorial de $N$ variables. Probad que si $A$ es abierto, $F$ es continua en $x_0 \in A$ con $F(x_0) \neq 0$, entonces existe un entorno $U$ de $x_0$ en $A$ tal que $F(x) \neq 0$ para todo $x \in U$.
+	\begin{proof}
+		Por la caracterización topológica de la continuidad\footnote{Sean $(E, d)$ y $(F, \rho)$ espacios métricos y $f: E \rightarrow F$. Equivalen las siguientes afirmaciones:
+		\begin{enumerate}[label=\alph*)]
+			\item $f$ es continua en $E$.
+			\item La imagen inversa por $f$ de todo abierto de $F$ es un abierto de $E$.
+			\item La imagen inversa por $f$ de todo cerrado de $F$ es un cerrado de $E$.
+		\end{enumerate}}, como $\mathbb{R}^M \setminus \{0\}$ es abierto, $\{x \in \mathbb{R}: F(x) \neq 0\}$ es abierto.
+		
+		$\forall x' \in \{x \in \mathbb{R}: F(x) \neq 0\}$, por la definición de abierto\footnote{<<Se dice que un conjunto $A \subset E$ es abierto en el espacio métrico $(E,d)$ si $\forall x \in A$ $\exists r_x > 0$ / $B(x,r_x) \subset A$.>>}, podemos tomar un $r_{x'}$ / $B(x',r_{x'}) \subset \{x \in \mathbb{R}: F(x) \neq 0\} \Rightarrow \forall y \in B(x',r_{x'})$, se tiene que $F(y) \neq 0$.
+		
+		Entonces, trivialmente se cumple para $x_0 \subset \{x \in \mathbb{R}: F(x) \neq 0\} \cap A \subset \{x \in \mathbb{R}: F(x) \neq 0\}$ y basta tomar $U = B(x_0, r_{x_0})$.
+	\end{proof}
+	\item Probad que toda aplicaión lineal $L: \mathbb{R}^N \rightarrow \mathbb{R}^M$ es continua.
+	\begin{proof}
+		Basta comprobar que $L$ es de Lipschitz, $||L(x)|| = ||T(\sum x_ie_i)|| \le \sum |x_i|$ $||T(e_i)|| \le M ||x||_1$ con $e_i=(0,0,\dots,1,\dots,0)$ y $M = \max\{||T(e_i)||: i=1,2,\dots,n \}$.
+		Como $L$ es de Lipschitz $\Rightarrow L$ es uniformemente continua\footnote{Ver ejercicio \ref{Lipschitz}} $\Rightarrow L$ es continua.
+	\end{proof}
+	\item Demostrar que si $F: \mathbb{R}^N \rightarrow \mathbb{R}^M$ es continua y $B \subset \mathbb{R}^N$ es un conjunto acotado, entonces $F(B)$ está acotado.
+	
+	Si tomamos $F: \mathbb{R}^N \rightarrow \mathbb{R}^M$ con $F(x) = \left(\displaystyle{\frac{1}{||x||}},0,\dots,0\right)$ y $B = B(0,r)\setminus \{0\}$.
+	Entonces, se queda que $F(B)=\displaystyle{\{\left(\frac{1}{k},0,\dots,0\right): k > r\}}$ que claramente no está acotado.
+	
+	\begin{proof}
+		He encontrado un contraejemplo.
+	\end{proof}
+	\item Sea $F: \mathbb{R}^N \rightarrow \mathbb{R}^M$ un campo continuo. Si $B \subset \mathbb{R}^N$ es cerrado, entonces ¿tiene que ser el conjunto $F(B)$ cerrado?\\
+	No, de hecho en el ejercicio 18 vimos que tomando $B=B^c(0,1)$ y $f:B \rightarrow \mathbb{R}$ con $\displaystyle{f(x) = \frac{1}{||x||}}$ es una función continua en $B$ y que $f(B) = ]0,1]$ que no es cerrado. Y claramente, $f$ es un ejemplo de campo continuo para el caso particular $M=1$.
+	\item Sea $B \subset \mathbb{R}^N$ un conjunto compacto y $F: B \rightarrow \mathbb{R}^M$ continua e inyectiva. Probad que $F^{-1}: F(B) \rightarrow B$ es continua.
+	\begin{proof}
+		Como $B$ es compacto y $F$ es continua, se tiene que $F(B)$ es compacto.
+		
+		Claramente, $F_{|B}: B \rightarrow F(B)$ con $F_{|B}(x) = F(x)$ $\forall x \in B$ es inyectiva ya que $F$ es inyectiva, y es sobreyectiva ya que está definida de un conjunto a su conjunto imagen. Por tanto, tenemos que $F_{|B}$ es biyectiva $\Rightarrow F^{-1}$ es función y que $(F^ {-1})^{-1} = F$.
+		
+		Como $(F^ {-1})^{-1} = F$, $(F^ {-1})^{-1}(B) = F(B)$. Ahora, como $F^{-1}$ lleva la imagen inversa de un cerrado a un cerrado, $F^{-1}$ es continua.
+	\end{proof}
+	\item Probad que toda aplicación Lipschitziana $F: A \subset \mathbb{R}^N \rightarrow \mathbb{R}^M$ es uniformemente continua. \label{Lipschitz}
+	\begin{proof}
+		Por la definición de continuidad uniforme\footnote{<<Sean $(E,d)$, $(F,\rho)$ espacios métricos, $\emptyset \neq A \subset E$ y $f: A \rightarrow F$. Se dice que $f$ es uniformemente continua si $\forall \varepsilon > 0$ $\exists \delta > 0$ / $||x-y|| < \delta \Rightarrow ||f(x)-f(y)|| < \varepsilon$ $\forall x,y \in A$.>>} y la de función de Lipschitz\footnote{<<Sean $(E,d)$, $(F,\rho)$ espacios métricos, $\emptyset \neq A \subset E$ y $f: A \rightarrow F$. Se dice que $f$ es de Lipschitz si $\exists M > 0$ / $||f(x)-f(y)|| \le M||x-y||$ $\forall x,y \in A$.>>}, podemos tomar $\delta = \frac{\varepsilon}{M}$ de manera que $||f(x)-f(y)|| \le M||x-y|| < M \delta = \varepsilon$.
+	\end{proof}
+	\item Sea $A \subset \mathbb{R}^N$ conexo y $f:A \rightarrow \mathbb{R}$ una función continua. Probad que si $f(x) \neq 0, \forall x \in A$, entonces:
+	\begin{itemize}
+		\item o bien $f(x) > 0, \forall x \in A$.
+		\item o bien $f(x) < 0, \forall x \in A$.
+	\end{itemize}
+	\begin{proof}
+		Claramente, los conjuntos $\{x \in \mathbb{R}^N: f(x) > 0\}$ y $\{x \in \mathbb{R}^N: f(x) > 0\}$ son abiertos\footnote{Usando la caracterización topológica de la continuidad y que $\mathbb{R}^+$ y $\mathbb{R}^-$ son abiertos} disjuntos, luego, como $f(A)$ es conexo\footnote{Por la definición de conjunto conexo\footnotemark[9] y porque $A$ es conexo.}. Se tiene que:
+		\footnotetext[9]{<<Sea $E$ un espacio métrico y $\emptyset \neq C \subset E$ se dice que $C$ es un conjunto conexo si para toda función continua $f: C \rightarrow \mathbb{R}$ se verifica que $f(C)$ es un intervalo.>>}
+		\begin{itemize}
+			\item Si $\{x \in \mathbb{R}^N: f(x) > 0\} \cap A \neq \emptyset \Rightarrow \{x \in \mathbb{R}^N: f(x) < 0\} = \emptyset$ porque si no, $A = \{x \in \mathbb{R}^N: f(x) < 0\} \cup \{x \in \mathbb{R}^N: f(x) > 0\}$ lo cual contradice que $A$ sea conexo.
+			\item Análogamente, se tiene que si $\{x \in \mathbb{R}^N: f(x) < 0\} \cap A \neq \emptyset \Rightarrow \{x \in \mathbb{R}^N: f(x) > 0\} = \emptyset$ porque si no, $A = \{x \in \mathbb{R}^N: f(x) > 0\} \cup \{x \in \mathbb{R}^N: f(x) < 0\}$ lo cual contradice que $A$ sea conexo.
+		\end{itemize}
+	\end{proof}
+	\item Estudiar la continuidad de la función $f: \mathbb{R}^2 \rightarrow \mathbb{R}$ definida como $f(0,0) = 0$ y para todo $(x,y) \in \mathbb{R}^2 \setminus \{0\}$:
+	\begin{enumerate}[label=\alph*)]
+		\item $\displaystyle{f(x,y) = \frac{x^2-y^2}{x^2+y^2}}$\\
+		La continuidad en $\mathbb{R}^2 \setminus \{(0,0)\}$ se obtiene por ser suma, producto y conciente de funciones continuas, veamos la continuidad en $(0,0)$:
+		
+		$\displaystyle{\lim\limits_{(x,y) \rightarrow (0,0)} f(x,y) = \lim\limits_{(x,y) \rightarrow (0,0)} \frac{x^2-y^2}{x^2+y^2}}$
+		
+		Pasándolo a polares, obtenemos:
+		
+		$\displaystyle{\lim\limits_{\rho \rightarrow 0} \frac{(\rho \cos \theta)^2-(\rho \sin \theta)^2}{(\rho \cos \theta)^2+(\rho \sin \theta)^2} = \lim\limits_{\rho \rightarrow 0} \frac{\rho^2 (\cos^2 \theta-\sin^2 \theta)}{\rho^2}} = \cos^2 \theta-\sin^2 \theta$
+		
+		Como depende de $\theta$, el límite no existe. Por tanto, no hay continuidad en $(0,0)$.
+		\item $\displaystyle{f(x,y) = \frac{x\sin y+y\sin x}{x^2+y^2}}$\\
+		Incompleto.%La continuidad en $\mathbb{R}^2 \setminus \{(0,0)\}$ se obtiene por ser suma, producto y conciente de funciones continuas, veamos la continuidad en $(0,0)$:
+		
+		%$\displaystyle{\lim\limits_{(x,y) \rightarrow (0,0)} f(x,y) = \lim\limits_{(x,y) \rightarrow (0,0)} \frac{x\sin y+y\sin x}{x^2+y^2}}$.
+		\item $\displaystyle{f(x,y) = \frac{x^3-y^3}{x^2+y^2}}$\\
+		La continuidad en $\mathbb{R}^2 \setminus \{(0,0)\}$ se obtiene por ser suma, producto y conciente de funciones continuas, veamos la continuidad en $(0,0)$:
+		
+		$\displaystyle{\lim\limits_{(x,y) \rightarrow (0,0)} f(x,y) = \lim\limits_{(x,y) \rightarrow (0,0)} \frac{x^3-y^3}{x^2+y^2} = \lim\limits_{(x,y) \rightarrow (0,0)} (x-y)\frac{x^2+xy+y^2}{x^2+y^2}} = \displaystyle{\lim\limits_{(x,y) \rightarrow (0,0)} (x-y) \cdot \lim\limits_{(x,y) \rightarrow (0,0)}\frac{x^2+xy+y^2}{x^2+y^2} = 0}$ ya que el primero tiende a 0 y el otro está acotados por 1\footnotemark[10]
+		\footnotetext[10]{Usando la desigualdad triangular}.
+		
+		Como $f(0,0) = \lim\limits_{(x,y) \rightarrow (0,0)} f(x,y)$, hay continuidad en $(0,0)$.
+		\item $\displaystyle{f(x,y) = \frac{\log\left(1+\sqrt{x^2+y^2}\right)}{|x|+|y|}}$\\
+		Incompleto.
+	\end{enumerate}
+	\item Sea $f: \mathbb{R}^* \times \mathbb{R}^* \rightarrow \mathbb{R}$ la función dada por:
+	\begin{center}
+		$\displaystyle{f(x,y) = (x+y)\sin \frac{\pi}{x}\sin \frac{\pi}{y}}$
+	\end{center}
+	Estudia si dicha función tiene límite en los puntos $(0,0)$, $(0,1)$ y $(0, \pi)$. ¿Es $f$ uniformemente continua?\\
+	Primero, calculamos $\lim\limits_{(x,y)\rightarrow (0,0)} f(x,y) = \lim\limits_{(x,y)\rightarrow (0,0)} (x+y)\displaystyle{\sin \frac{\pi}{x}\sin \frac{\pi}{y}} = \lim\limits_{(x,y)\rightarrow (0,0)} (x+y) \cdot \lim\limits_{(x,y)\rightarrow (0,0)} \displaystyle{\sin \frac{	\pi}{x}\sin \frac{\pi}{y}} \le \lim\limits_{(x,y)\rightarrow (0,0)} (x+y) \cdot 1 = 0$
+	
+	Calculamos el siguiente $\lim\limits_{(x,y)\rightarrow (0,1)} f(x,y) = \lim\limits_{(x,y)\rightarrow (0,0)} f(x,y-1) = \lim\limits_{(x,y)\rightarrow (0,0)} (x+y-1)\displaystyle{\sin \frac{\pi}{x}\sin \frac{\pi}{y-1}} = \lim\limits_{(x,y)\rightarrow (0,0)} (x+y-1)\displaystyle{\sin \frac{\pi}{x}} \cdot \lim\limits_{(x,y)\rightarrow (0,0)} \displaystyle{\sin \frac{\pi}{y-1}} \le  1 \cdot \lim\limits_{(x,y)\rightarrow (0,0)} \displaystyle{\sin \frac{\pi}{y-1}} = \sin -\pi = 0$
+	
+	Finalmente, para calcular $\lim\limits_{(x,y)\rightarrow (0,\pi)} f(x,y)$ usaremos la sucesión $\{a_n\}_{n \in \mathbb{N}}$ con $a_n = \displaystyle{\left(\frac{2}{2n+1}, \pi\right)}$.
+	$f(a_n) = \displaystyle{\left(\frac{2}{2n+1} + \pi\right) \sin \frac{(2n+1)\pi}{2} \sin \frac{\pi}{\pi}} = \displaystyle{\left(\frac{2}{2n+1} + \pi\right) \sin \left(n\pi + \frac{\pi}{2}\right) \sin 1} = \displaystyle{\left(\frac{2}{2n+1} + \pi\right) (-1)^n \sin 1}$.
+	
+	Si tomamos $\lim\limits_{n \rightarrow \infty} f(a_n) = \left\{ \begin{array}{ccl}
+		\pi \sin 1 &   si  & n $ es par.$\\
+		-\pi \sin 1 &  si & n $ es impar.$
+	\end{array}\right.$
+	
+	Por tanto, observamos que no existe el límite.
+	
+	Para probar que $f$ no es uniformemente continua, utilizaremos la sucesión creada anteriormente. $\forall \varepsilon \le 2\pi \sin 1$, podemos observar que $\{||a_{2n}-a_{2n+1}||\} \rightarrow 0$ y $\{||f(a_{2n}-f(a_{2n+1}))||\} \rightarrow 2\pi \sin 1 \ge \varepsilon$.
+\end{enumerate}
+
+\end{document}

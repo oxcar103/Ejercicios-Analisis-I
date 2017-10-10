@@ -1,0 +1,255 @@
+%%
+% Modificación de una plantilla de Latex para adaptarla al castellano.
+%%
+
+%%%%%%%%%%%%%%%%%%%%%
+% Thin Sectioned Essay
+% LaTeX Template
+% Version 1.0 (3/8/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Author:
+% Nicolas Diaz (nsdiaz@uc.cl) with extensive modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper, 11pt]{article} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage{graphicx} % Required for including pictures
+\usepackage[usenames,dvipsnames]{color} % Coloring code
+\usepackage{wrapfig} % Allows in-line images
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{enumitem}
+
+% sudo apt-get install texlive-lang-spanish
+\usepackage[spanish]{babel} % English language/hyphenation
+\selectlanguage{spanish}
+% Hay que pelearse con babel-spanish para el alineamiento del punto decimal
+\decimalpoint
+\usepackage{dcolumn}
+\newcolumntype{d}[1]{D{.}{\esperiod}{#1}}
+\makeatletter
+\addto\shorthandsspanish{\let\esperiod\es@period@code}
+\makeatother
+
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{supertabular}
+
+\usepackage{multicol}
+\newsavebox\ltmcbox
+
+% Para algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsthm}
+
+% Símbolos matemáticos
+\usepackage{amssymb}
+\usepackage{accents}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\usepackage[section]{placeins} % Para gráficas en su sección.
+\usepackage[T1]{fontenc} % Required for accented characters
+\newenvironment{allintypewriter}{\ttfamily}{\par}
+\setlength{\parindent}{0pt}
+\parskip=8pt
+\linespread{1.05} % Change line spacing here, Palatino benefits from a slight increase by default
+
+\makeatletter
+\renewcommand\@biblabel[1]{\textbf{#1.}} % Change the square brackets for each bibliography item from '[1]' to '1.'
+\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
+\newcommand{\imagen}[2]{\begin{center} \includegraphics[width=90mm]{#1} \\#2 \end{center}}
+
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+\begin{flushright} % Right align
+{\LARGE\@title} % Increase the font size of the title
+
+\vspace{50pt} % Some vertical space between the title and author name
+
+{\large\@author} % Author name
+\\\@date % Date
+
+\vspace{40pt} % Some vertical space between the author block and abstract
+\end{flushright}
+}
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\title{\textbf{Relación de ejercicios de Continuidad.}\\ % Title
+2ª parte} % Subtitle
+
+\author{\textsc{Óscar Bermúdez} % Author
+\\{\textit{Universidad de Granada}}} % Institution
+
+\date{\today} % Date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+\begin{enumerate}
+	\item Sean $A \subset \mathbb{R}^N$, $x \in A$ e $y \in \mathbb{R}^N \setminus A$. Probad que si $\varphi: [0,1] \rightarrow \mathbb{R}^N$ es un camino continuo uniendo $x$ e $y$ ($\varphi(0) = x$, $\varphi(1) = y$), entonces existe $t \in [0,1]$ tal que $\varphi(t) \in \partial A$.
+	\begin{proof}
+		Basta tomar $(\psi \circ \varphi)(x)$ con
+		$\psi(x) = \left\{ \begin{array}{ccc}
+							d(x,\partial A) &   si  & x \in A \\
+							-d(x, \partial A) &  si & x \notin A
+						\end{array}\right.$\\
+		Entonces, tomando $x,y \notin \partial A$\footnote{ya que si $x \in \partial A$ ó $y \in \partial A$ se tiene que $\exists t \in \{0,1\} \subset [0,1]$ / $\varphi(t) \in \partial A$.}, se tiene $\psi \circ \varphi$ es continua, $(\psi \circ \varphi)(0) > 0$ y $(\psi \circ \varphi)(1) < 0$, y por el \textbf{Teorema de los ceros de Bolzano}\footnote{<<Sean $a, b \in \mathbb{R}$ con $a < b$ y $f: [a,b] \rightarrow \mathbb{R}$ función continua, verificando $f(a) < 0$ y $f(b) > 0$. Entonces, $\exists c \in ]a,b[$ / $f(c) = 0$.>>}, $\exists t \in ]0,1[$ / $(\psi \circ \varphi)(t) = 0 \Rightarrow d(\varphi(t), \partial A) = 0 \Rightarrow \varphi(t) \in \partial A$.
+	\end{proof}
+	\item Sea $A = \{(x,y) \in \mathbb{R}^2: x^4 + y^4 = 1\}$. Demostrar que $A$ es compacto. ¿Es conexo?
+	\begin{proof}
+		Claramente, $A = \partial B_{||\cdot||_4}(0,1)$.\\
+		Por tanto, como $B_{||\cdot||_4}(0,1)$ está acotado $\accentset{\footnotemark[3]} \Rightarrow A$ es compacto.
+		\footnotetext[3]{Visto en el ejercicio 1 de la 1ª parte.}
+	\end{proof}
+	\begin{proof}
+		Sea $f: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ la función\footnotemark[4] que transforma los puntos de $B_{||\cdot||_4}(0,1)$ en puntos de $B_{||\cdot||_2}(0,1) = B(0,1)$.\\
+		\footnotetext[4]{$f(x,y)=\left(x, signo(y)\sqrt{1-x^2}\right)=\left(x, signo(y) \sqrt{1-(y^4-1)^2}\right)$ ya que $\left(x, \sqrt{1-x^2}\right) \in B(0,1)$, $\left(x, \sqrt[4]{1-x^4}\right) \in B_{||\cdot||_4}(0,1)$ y el $signo(y)$ es para diferenciar los 2 posibles valores.\\
+		Por la segunda igualdad, su inversa es $f^{-1}(x,y) = \left(x, signo(y) \sqrt[4]{1-(y^2-1)^4}\right)$.}
+		Sea $g: \mathbb{R}^2 \rightarrow \mathbb{R}^2$ la función\footnotemark[5] que transforma de coordenadas cartesianas a polares.
+		\footnotetext[5]{$g(x,y)=\left(x^2 + y^2, \arctan\left(\frac{x}{y} \right) \right)$ y $g^{-1}(\rho, \theta)=(\rho \cos \theta, \rho \sin \theta)$.}\\
+		Como $\partial B(0,1)$ es arcoconexa\footnotemark[3] $\Rightarrow \forall x',y' \in \partial B(0,1)$ $\exists \alpha': [0,1] \rightarrow \mathbb{R}$ con $\alpha'(0)=(\rho_{x'}, \theta_{x'})$, $\alpha'(1)=(\rho_{y'}, \theta_{y'})$ y $\alpha'(t)=(t\rho_{x'} + (1-t)\rho_{y'}$, $t\theta_{x'} + (1-t)\theta_{y'})$ solo que como trabaja sobre $\partial B(0,1)$, podemos tomar $\rho_{x'} = \rho_{y'} = 1$.\\
+		Y $\forall x,y \in \partial B_{||\cdot||_4}(0,1)$, definimos $\alpha: [0,1] \rightarrow \mathbb{R}^2$ como $\alpha(0) = x$, $\alpha(1)=y$ y $\alpha(t) = (f^{-1} \circ g^{-1} \circ \alpha' \circ g \circ f) (t) \Rightarrow A=\partial B_{||\cdot||_4}(0,1)$ es arcoconexo $\Rightarrow A$ es conexo.
+	\end{proof}
+	\item Sea $A \subset \mathbb{R}^N$ un subconjunto conexo que posee más de un punto. Probad que todo punto de $A$ es un punto de acumulación de $A$.
+	\begin{proof}
+		Por la definición de punto de adherencia de $A$\footnotemark[6], punto aislado de $A$\footnotemark[7] y punto de acumulación de $A$\footnotemark[8], obtenemos que los puntos de adherencia($\overline{A}$) o son aislados o son de acumulación($A'$). Esto es, $A' = \overline{A} \setminus $\{puntos aislados de $A$\}.\label{adherencia}\\
+		\footnotetext[6]{<<Sea $A$ un subconjunto no vacío de $E$, un elemento $x \in E$ se dice que es adherente a $A$ si $\forall r > 0$ se tiene $B(x,r) \cap A \neq \emptyset$.>>}
+		\footnotetext[7]{<<Sea $A$ un subconjunto no vacío de $E$, un elemento $x \in E$ se dice que es punto de acumulación de $A$ si $\exists \{a_n\}$ de puntos de $A$ distintos de $x$ y convergente a $x$, equivalentemente, si $\forall \varepsilon > 0$ $B(x, \varepsilon) \cap (A \setminus \{x\}) \neq \emptyset$.>>}
+		\footnotetext[8]{<<Se dice que un punto $x \in A$ es punto aislado de $A$ si $\exists \varepsilon > 0$ / $B(x, \varepsilon) \cap (A) = \{x\}$.>>}
+		$A$ es conexo $\Rightarrow A$ no tiene puntos aislados\footnotemark[9] $\Rightarrow A \subset \overline{A} = A'$.
+		\footnotetext[9]{En caso de tenerlos, podríamos tomar la partición $B(x, \varepsilon) \cup \mathbb{R}^N \setminus \overline{B}(x, \varepsilon)$ de abiertos no triviales con $x$ punto aislado de $A$ y $\varepsilon$ tal que $B(x,\varepsilon) \cap A = \{x\}$.}
+	\end{proof}
+	\item Una familia de conjuntos de $A_\lambda$ ($\lambda \in \Lambda$) se dice que verifica la propiedad de intersección finita con $A$ si la intersección de cualquier número finito de $A_\lambda$ con $A$ no es vacía. Probad la equivalencia de las siguientes afirmaciones:
+	\begin{enumerate}[label=\alph*)]
+		\item Todo recubrimiento abierto de $A$ admite un subrecubrimiento finito ($A$ es compacto).\label{compacto}
+		\item Cualquier familia de conjuntos cerrados con la propiedad de intersección finita con $A$ tiene intersección con $A$ no vacía.\label{intersección}
+	\end{enumerate}
+	\begin{proof}
+		Incompleto.\\
+		\fbox{\ref{compacto} $\Rightarrow$  \ref{intersección}} \\
+		\fbox{\ref{intersección} $\Rightarrow$  \ref{compacto}}
+	\end{proof}
+	\item Sea $\{F_k\}$ una sucesión de subconjuntos compactos $F_k \subset \mathbb{R}^N$ verificando $F_{k+1} \subset F_k$ (encajados) para todo $k \in \mathbb{N}$. Probad que:
+	\begin{center}
+		$\displaystyle{\bigcap_{k=1}^\infty F_k \neq \emptyset}$
+	\end{center}
+	\begin{proof}
+		Si tomamos $\{x_n\}$ una sucesión tal que $x_k \in F_k$, claramente, $\{x_n\} \subset F_1$, y como $F_1$ es compacto $\Rightarrow \exists \sigma: \mathbb{N} \rightarrow \mathbb{N}$ estrictamente creciente tal que $\{x_\sigma(n)\} \rightarrow x$ con $x \in F_1$. Si tomamos ahora $\varphi_k: \mathbb{N} \rightarrow \mathbb{N}$ con $\varphi_k(n) = n+k$, se tiene que:
+		\begin{itemize}
+			\item $\{x_{\varphi_k(\sigma(n))}\}$ es una parcial de $\{x_\sigma(n)\}$, y como $\{x_\sigma(n)\}$ es convergente $\Rightarrow \{x_{\varphi_k(\sigma(n))}\}$ es convergente.
+			\item $\{x_{\varphi_k(\sigma(n))}\}$ está contenida en $F_k$ por cómo formamos $\{x_n\}$.
+		\end{itemize}
+		Por tanto, se tiene que $\forall k \in \mathbb{N}$, $\{x_{\varphi_k(\sigma(n))}\}$ es sucesión convergente de $F_k$, como $F_k$ es compacto $\Rightarrow \forall k \in \mathbb{N}$ tenemos $x \in F_k \Rightarrow x \in \displaystyle{\bigcap_{k=1}^\infty F_k}$.
+	\end{proof}
+	\item (Conjuntos de Cantor). Sea $F_1 = \displaystyle{\left[0,\frac{1}{3}\right] \cup \left[\frac{2}{3}, 1\right]}$ obtenido eliminando del intervalo $[0,1]$ su tercio central. Inductivamente, sea $F_{k+1}$ el conjunto que resulta de eliminar los tercios centrales de los subintervalos de $F_k$; es decir,
+	\begin{center}
+		$\displaystyle{F_2 = \left[0, \frac{1}{9}\right] \cup \left[\frac{2}{9}, \frac{1}{3}\right] \cup \left[\frac{2}{3}, \frac{7}{9}\right] \cup \left[\frac{8}{9}, 1\right]}$,\\
+		$\vdots$
+	\end{center}
+	Se llama conjunto de Cantor a $\displaystyle{C=\bigcap_{k = 1}^\infty F_k}$. Probad:
+	\begin{enumerate}[label=\alph*)]
+		\item $C$ es compacto.
+		\begin{proof}
+			Trivial, ya que $C \subset [0,1]$ acotado y $F_k \in \mathcal{F} \Rightarrow  \displaystyle{C =\bigcap_{k=1}^\infty} F_k \in \mathcal{F}$. Por tanto, tenemos un conjunto $C$ en $\mathbb{R}^N$(con $N=1$) que es cerrado y acotado $\Rightarrow C$ es compacto.
+		\end{proof}
+		\item $C$ tiene infinitos puntos.
+		\begin{proof}
+			Por la forma de construir los $F_k$, sabemos que los puntos de los extremos de los intervalos de $F_k$ no se eliminarán en ninguna de las siguientes iteraciones ya que sólo quitamos los tercios centrales de cada intervalo y estos puntos siempre se quedarán en un extremo.\\
+			Esto es, $\forall x$ / $x$ sea extremo de un intervalo en $F_n$, se tiene que $x$ es extremo de un intervalo en $F_{n+m}$ $\forall m \in \mathbb{N}$. Por tanto, $\displaystyle{x \in \bigcap_{k=n}^\infty F_k}$.\\
+			Por eso, si observamos que $F_0 = [0,1]$ tiene 2 extremos $(0, 1)$, a $F_1$ le quitamos $\displaystyle{\left]\frac{1}{3}, \frac{2}{3}\right[}$, tenemos que le hemos añadido 2 nuevos extremos $\displaystyle{\left(0,\frac{1}{3}, \frac{2}{3},1\right)}$. A $F_2$, le hemos añadido 4 nuevos extremos $\displaystyle{\left(0, \frac{1}{9}, \frac{2}{9}, \frac{1}{3}, \frac{2}{3}, \frac{7}{9}, \frac{8}{9}, 1\right)}$. Y así, sucesivamente.\\
+			Por tanto, si tomamos \{puntos extremos de los intervalos de $F_k$: $k \in \mathbb{N}$\}, obtenemos que este conjunto es infinito ya que el número de extremos de los intervalos de $F_k$ se duplica en cada iteración. Por tanto, hay infinito número de puntos en $\displaystyle{C = \bigcap_{k = 1}^\infty F_k}$.
+		\end{proof}
+		\item $\accentset{\circ} C$ es vacío.
+		\begin{proof}
+			Supongamos que $\accentset{\circ} C \neq \emptyset$:\\
+			Entonces, tomemos $x \in \accentset{\circ} C$, esto es, $\exists r > 0$ / $B(x,r) \subset C$.\\
+			Como $x \in \accentset{\circ} C \Rightarrow x \in C \Rightarrow x \in F_k$ $\forall k \in \mathbb{N}$.
+			Entonces, $x \in F_p$ con $p > -\ln r$ y $p \in \mathbb{N}$. Claramente, $\displaystyle{\frac{1}{3^p} < \frac{1}{e^p} < r}$.\\
+			Como $x \in F_p \Rightarrow \exists a,b \in F_p$ / $x \in [a,b] \subset F_p$ con $\displaystyle{|a-x| \le |a-b| = \frac{1}{3^p}<r}$ $\Rightarrow B(x,r) \not \subset F_p \subset C$. Y llegamos a una contradicción.\\
+			Por tanto, tenemos que $\accentset{\circ} C = \emptyset$.
+		\end{proof}
+		\item $C$ es perfecto(es decir, es cerrado y no tiene puntos aislados).
+		\begin{proof}
+			Como vimos en el ejercicio \ref{adherencia}, $C' = \overline{C} \setminus $\{puntos aislados de $C$\}. Dado que $C$ es compacto y, por tanto, cerrado, tenemos que $C = \overline{C}$. Si queremos ver que $C$ es perfecto, sólo tenenmos que comprobar que $C=C'$.\\
+			Dado $\varepsilon > 0$, $\forall x \in C \Rightarrow x \in F_k$ $\forall k \in \mathbb{N} \Rightarrow x \in F_p$ con $p \in \mathbb{N}$ y $p > -\ln \varepsilon \Rightarrow \exists a,b \in F_p$ / $x \in [a,b] \subset F_p$.\\
+			Por tanto, tenemos que $\forall y \in [a,b]$ $|x-y| \le |x-b| \le |a-b| = \displaystyle{\frac{1}{3^p} \le \frac{1}{e^p} < \varepsilon} \Rightarrow B(x,\varepsilon) \cap (C \setminus \{x\}) \neq \emptyset \Rightarrow x \in C'$.
+		\end{proof}
+	\end{enumerate}
+	\item Sea $f: \mathbb{R} \rightarrow \mathbb{R}$ continua. ¿Cuáles de los conjuntos siguientes son necesariamente cerrados, abiertos, compactos o conexos?
+	\begin{enumerate}[label=\alph*)]
+		\item $\{x \in \mathbb{R}: f(x) = 0\}$.\\
+		Por la caracterización topológica de la continuidad\footnotemark[10], como $[0]$ es cerrado, $\{x \in \mathbb{R}: f(x) = 0\}$ es cerrado.
+		No se puede decir nada de las otras:
+		\begin{itemize}
+			\item Con $f \equiv 0$ se tiene que $\{x \in \mathbb{R}: f(x) = 0\} = \mathbb{R}$ que es abierto y conexo pero no es compacto.
+			\item Con $f(x) = x(x-1)$ se tiene que $\{x \in \mathbb{R}: f(x) = 0\} = \{0\} \cup \{1\}$ que es compacto pero no es ni abierto ni conexo.
+		\end{itemize}
+		\footnotetext[10]{Sean $(E, d)$ y $(F, \rho)$ espacios métricos y $f: E \rightarrow F$. Equivalen las siguientes afirmaciones:
+		\begin{enumerate}[label=\alph*)]
+			\item $f$ es continua en $E$.
+			\item La imagen inversa por $f$ de todo abierto de $F$ es un abierto de $E$.
+			\item La imagen inversa por $f$ de todo cerrado de $F$ es un cerrado de $E$.
+		\end{enumerate}
+		}
+		\item $\{x \in \mathbb{R}: f(x) > 1\}$.\\
+		Por la caracterización topológica de la continuidad\footnotemark[10], como $]1,\infty]$ es abierto, $\{x \in \mathbb{R}: f(x) > 1\}$ es abierto.
+		No se puede decir nada de las otras(excepto la trivialidad de que si es compacto, es cerrado):
+		\begin{itemize}
+			\item Con $f(x) = x+1$, se tiene que $\{x \in \mathbb{R}: f(x) > 1\} = \mathbb{R}^+$ que es conexo pero no es ni cerrado ni compacto.
+			\item Con $f(x) = 1$, se tiene que $\{x \in \mathbb{R}: f(x) > 1\} = \emptyset$ que es cerrado, compacto y conexo.
+			\item Con $f(x) = x^2$, se tiene que $\{x \in \mathbb{R}: f(x) > 1\} = \mathbb{R} \setminus [-1,1]$ que no es ni conexo ni cerrado ni compacto.
+		\end{itemize}
+		\item $\{f(x): x \ge 0\}$.\\
+		Por la definición de conjunto conexo\footnotemark[11] y por el \textbf{Teorema del Valor Intermedio}\footnotemark[12], es evidente que los intervalos son conjuntos conexos $\Rightarrow [0, \infty]$ es conexo $\Rightarrow \{f(x): x \ge 0\}$ es conexo.\\
+		\footnotetext[11]{<<Sea $E$ un espacio métrico y $\emptyset \neq C \subset E$ se dice que $C$ es un conjunto conexo si para toda función continua $f: C \rightarrow \mathbb{R}$ se verifica que $f(C)$ es un intervalo.>>}
+		\footnotetext[12]{<<Sea $\emptyset \neq C \subset \mathbb{R}$ y $f:C \rightarrow \mathbb{R}$ una función continua. Si $I$ es un intervalo contenido en $C$, $I \subset C$, entonces $f(I)$ también es un intervalo.>>}
+		No se puede decir nada de las otras(excepto la trivialidad de que si es compacto, es cerrado):
+		\begin{itemize}
+			\item Con $f \equiv 0$ se tiene que $\{f(x): x \ge 0\} = \{0\}$ que es cerrado y acotado pero no es abierto.
+			\item Con $f(x) = x\sin x$, se tiene que $\{f(x): x \ge 0\} = \mathbb{R}$ que es abierto y cerrado pero no es compacto.
+			\item Con $f(x) = \displaystyle{\frac{1}{x+1}}$, se tiene que $\{f(x): x \ge 0\} = ]0,1]$ que no es ni abierto ni cerrado ni compacto.
+		\end{itemize}
+		\item $\{f(x): 0 \le x \le 1\}$.\\
+		Por la definición de conjunto conexo\footnotemark[11] y por el \textbf{Teorema del Valor Intermedio}\footnotemark[12], es evidente que los intervalos son conjuntos conexos $\Rightarrow [0, 1]$ es conexo $\Rightarrow \{f(x): 0 \le x \le 1\}$ es conexo.\\
+		Por el \textbf{Teorema de Conservación de la Compacidad por Continuidad}\footnotemark[13] y que $[0,1]$ es compacto $\Rightarrow \{f(x): 0 \le x \le 1\}$ es compacto.\\
+		Claramente, $\{f(x): 0 \le x \le 1\}$ no es abierto.
+		\footnotetext[13]{<<Sean $E$ y $F$ espacios métricos, $K$ un subconjunto compacto y $f: K \rightarrow F$ continua. Entonces, $f(K)$ es compacto.>>}
+	\end{enumerate}
+	\item ¿Tiene que ser cerrada la imagen continua de un conjunto cerrado?¿Y si además el conjunto es acotado?\\
+	Claramente, tomando el conjunto cerrado pero no acotado $A = B^c(0,1)$ y sea $f:A \rightarrow \mathbb{R}$ con $\displaystyle{f(x) = \frac{1}{||x||}}$ función continua en $A$, se obtiene que $f(A) = ]0,1]$ que no es un conjunto cerrado.\\
+	Si tenemos un conjunto $A$ cerrado y acotado puede ocurrir que:
+	\begin{itemize}
+		\item Sea compacto\footnotemark[14], en cuyo caso, usamos el \textbf{Teorema de Conservación de la Compacidad por Continuidad}\footnotemark[13], se tiene que la imagen continua de un compacto(cerrado y acotado), es compacta(cerrada y acotada).
+		\footnotetext[14]{Esto siempre ocurre en espacios de dimensión finita como $\mathbb{R}^N$.}
+		\item No sea compacto, en cuyo caso, no podemos decir nada.
+	\end{itemize}
+	\item Sean $A,B \subset \mathbb{R}$. Probad que si $A \times B$ es conexo en $\mathbb{R}^2$, entonces $A$ es conexo.
+	\begin{proof}
+		Por la definición de conjunto conexo\footnotemark[11] y como las proyecciones siempre son continuas, se tiene que $\Pi_A(A \times B) = A$ es un intervalo, y por el \textbf{Teorema del Valor Intermedio}\footnotemark[12], es evidente que los intervalos son conjuntos conexos $\Rightarrow A$ es conexo.
+	\end{proof}
+	\item Sean $A,B \subset \mathbb{R}$ tales que $A \times B$ es abierto. ¿Tiene que ser abierto $A$?\\
+
+	No, de hecho, $A \times \emptyset$ es siempre abierto.
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,346 @@
+%%
+% Modificación de una plantilla de Latex para adaptarla al castellano.
+%%
+
+%%%%%%%%%%%%%%%%%%%%%
+% Thin Sectioned Essay
+% LaTeX Template
+% Version 1.0 (3/8/13)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original Author:
+% Nicolas Diaz (nsdiaz@uc.cl) with extensive modifications by:
+% Vel (vel@latextemplates.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[a4paper, 11pt]{article} % Font size (can be 10pt, 11pt or 12pt) and paper size (remove a4paper for US letter paper)
+
+\usepackage[protrusion=true,expansion=true]{microtype} % Better typography
+\usepackage{graphicx} % Required for including pictures
+\usepackage[usenames,dvipsnames]{color} % Coloring code
+\usepackage{wrapfig} % Allows in-line images
+\usepackage[utf8]{inputenc}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{accents}
+
+% sudo apt-get install texlive-lang-spanish
+\usepackage[spanish]{babel} % English language/hyphenation
+\selectlanguage{spanish}
+% Hay que pelearse con babel-spanish para el alineamiento del punto decimal
+\decimalpoint
+\usepackage{dcolumn}
+\newcolumntype{d}[1]{D{.}{\esperiod}{#1}}
+\makeatletter
+\addto\shorthandsspanish{\let\esperiod\es@period@code}
+\makeatother
+
+\usepackage{longtable}
+\usepackage{tabu}
+\usepackage{supertabular}
+
+\usepackage{multicol}
+\newsavebox\ltmcbox
+
+% Para algoritmos
+\usepackage{algorithm}
+\usepackage{algorithmic}
+\usepackage{amsthm}
+
+% Símbolos matemáticos
+\usepackage{amssymb}
+\let\oldemptyset\emptyset
+\let\emptyset\varnothing
+
+\usepackage[section]{placeins} % Para gráficas en su sección.
+\usepackage[T1]{fontenc} % Required for accented characters
+\newenvironment{allintypewriter}{\ttfamily}{\par}
+\setlength{\parindent}{0pt}
+\parskip=8pt
+\linespread{1.05} % Change line spacing here, Palatino benefits from a slight increase by default
+
+\makeatletter
+\renewcommand\@biblabel[1]{\textbf{#1.}} % Change the square brackets for each bibliography item from '[1]' to '1.'
+\renewcommand{\@listI}{\itemsep=0pt} % Reduce the space between items in the itemize and enumerate environments and the bibliography
+\newcommand{\imagen}[2]{\begin{center} \includegraphics[width=90mm]{#1} \\#2 \end{center}}
+
+\renewcommand{\maketitle}{ % Customize the title - do not edit title and author name here, see the TITLE block below
+\begin{flushright} % Right align
+{\LARGE\@title} % Increase the font size of the title
+
+\vspace{50pt} % Some vertical space between the title and author name
+
+{\large\@author} % Author name
+\\\@date % Date
+
+\vspace{40pt} % Some vertical space between the author block and abstract
+\end{flushright}
+}
+
+%Basado en: http://en.wikibooks.org/wiki/LaTeX/Theorems
+\usepackage{amsthm}
+\newtheorem*{mydef}{Definición}
+\newtheorem{mydefn}{Definición}
+\newtheorem{theorem}{Teorema}
+\everymath{\displaystyle} % Displaystyle por defecto
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+\title{\textbf{Relación de ejercicios de Continuidad.}\\ % Title
+1ª parte} % Subtitle
+
+\author{\textsc{Óscar Bermúdez} % Author
+\\{\textit{Universidad de Granada}}} % Institution
+
+\date{\today} % Date
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Print the title section
+
+\pagebreak
+
+\begin{enumerate}
+	\item Si $x \in \mathbb{R}^N$ y $A \subset \mathbb{R}^N$, se define:
+	\begin{center}
+		$d(x,A):=\inf\{d(x,y): y\in A \}$
+	\end{center}
+	\begin{enumerate}[label=\alph*)]
+		\item Probad que para cada $\varepsilon > 0$, el conjunto $D(A,\varepsilon):=\{x \in \mathbb{R}^N: d(x,A) < \varepsilon\}$ es abierto y el conjunto $N(A, \varepsilon):=\{x \in \mathbb{R}^N: d(x,A) \le \varepsilon\}$ es cerrado.
+		\begin{proof} 
+			$\forall \varepsilon>0$ que tomemos, se tiene que:\\
+			\begin{itemize}
+			\item $D(A,\varepsilon)$ es abierto $\Leftrightarrow \forall \varepsilon > 0$ $\exists r > 0$  /  $B(y,r) \subseteq D(A,\varepsilon)$.\\
+			Si tomamos un $y \in D(A,\varepsilon)$, y tomamos $r=\frac{\varepsilon-d(y,A)}{2}$, tenemos que $\forall z \in B(y,r)$, $d(z,A) \le d(z,y) + d(y,A) < \frac{\varepsilon-d(y,A)}{2}+ d(y,A) < \varepsilon-d(y,A)+d(y,A)=\varepsilon$ $\Rightarrow$ $D(A,\varepsilon)$ es abierto.
+			\item Como tenemos que $N(A,\varepsilon) = D^c(D^c(A,\varepsilon+1),1)$ \footnote{$D^c(D^c(A,\varepsilon+1),1) = D^c(\{x\in \mathbb{R}^N: d(x,A)\geq \varepsilon+1 \},1) = \{y\in \mathbb{R}^N: d(y, \{x\in \mathbb{R}^N: d(x,A) \geq \varepsilon+1 \} \geq 1$. Es decir, los puntos que están a una distancia mayor o igual que 1 del conjunto de puntos que están a una distancia mayor o igual que $\varepsilon+1$ del conjunto A; esto es, los puntos que están a una distancia menor o igual que $\varepsilon$ del conjunto A($N(A,\varepsilon)$).} y $D(B,\delta)$ es abierto $\forall B \subset \mathbb{R}^N$, $\forall \delta>0$, tenemos que $N(A,\varepsilon)$ es complementario de un abierto y, por tanto, es cerrado.
+			\end{itemize}
+		\end{proof}
+		\item Probad que $A$ es cerrado $\Leftrightarrow$ $\displaystyle{A =  \bigcap_{\varepsilon>0} N(A, \varepsilon)}$.
+		\begin{proof}
+			\fbox{$\Leftarrow$} $\{N(A,\varepsilon): \varepsilon > 0\} \subset \mathcal{F} \Rightarrow A = \displaystyle{\bigcap_{\varepsilon>0}N(A,\varepsilon)}$ es cerrado. \\
+			\fbox{$\Rightarrow$} $A$ cerrado $\Leftrightarrow A=\overline{A}$. \\
+			Claramente, $\overline{A} \subseteq \displaystyle{\bigcap_{\varepsilon>0} N(A,\varepsilon)}$. \\
+			Supongamos que $\overline{A} \neq \displaystyle{\bigcap_{\varepsilon>0} N(A,\varepsilon)}$:\\
+			Entonces, podemos tomar un $x \in \displaystyle{\bigcap_{\varepsilon>0} N(A,\varepsilon)} \setminus \overline{A} \Rightarrow \exists r>0$  /  $B(x,r) \cap A = \emptyset \Rightarrow d(x,A) > r > 0$.\\
+			Por otra parte, tenemos que si tomamos $\varepsilon_0 = \frac{r}{2} <r$, como $x \in \displaystyle{\bigcap_{\varepsilon>0} N(A,\varepsilon)} \Rightarrow d(x,A)<\varepsilon_0 < r$.\\
+			Y llegamos a la contradicción.
+		\end{proof}
+		\item Probad que $\accentset{\circ}{A} = \{x \in \mathbb{R}^N: d(x,\mathbb{R}^N \setminus A) > 0\}$ y que $\overline{A} = \{x \in \mathbb{R}^N: d(x,A) = 0\}$.
+		\begin{proof}
+			\begin{itemize}
+				\item Veamos primero que $\accentset{\circ}{A} = \{x \in \mathbb{R}^N: d(x,\mathbb{R}^N \setminus A) > 0\}$:
+				\begin{itemize}
+					\item \fbox{$\subset$} $\forall x \in \accentset{\circ}{A}$, $\exists r>0$  /  $B(x,r) \subset A$. Esto es, $d(x,A^c) \geq r > 0 \Rightarrow x \in \{x \in \mathbb{R}^N: d(x,A^c) > 0\}$.
+					\item \fbox{$\supset$} $\forall x \in \{x \in \mathbb{R}^N: d(x,A^c) > 0\}$, podemos tomar $ r = \frac{d(x,A^c)}{2} > 0$ verificando $B(x,r) \cap A^c = \emptyset \Rightarrow B(x,r) \subset A \Rightarrow x \in \accentset{\circ}{A}$.
+				\end{itemize}
+				\item Ahora, veamos que $\overline{A} = \{x \in \mathbb{R}^N: d(x,A) = 0\}$:\\
+				Como tenemos que $\overline{A}=\mathbb{R}^N \setminus Int(A^c)$, por lo probado anteriormente, se tiene $\overline{A}=\mathbb{R}^N \setminus Int(A^c)=\mathbb{R}^N \setminus \{x \in \mathbb{R}^N: d(x, A) > 0\} = \{x \in \mathbb{R}^N: d(x, A) \le 0\} =$\footnote{ya que $d(x,A)\geq 0$.} $\{x \in \mathbb{R}^N: d(x,A) = 0\}$.
+			\end{itemize}
+		\end{proof}
+	\end{enumerate}
+	\item ¿Cuáles de los siguientes conjuntos son compactos?¿y cuáles son conexos?
+	\begin{enumerate}[label=\alph*)]
+		\item $\{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}$.\\
+		No es compacto, ya que en $\mathbb{R}^N$, los compactos son los cerrados y acotados y como $x_2$ puede tomar cualquier valor, $\{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}$ no está acotado.\\
+		$\forall x,y \in \{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}$, se tiene $x+t(y-x)\in \{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}, \forall t \in [0,1] \Rightarrow \{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}$ es convexo $\Rightarrow \{(x_1,x_2) \in \mathbb{R}^2: |x_1| \le 1\}$ es conexo.
+		\item $\{x \in \mathbb{R}^N: |x| \le 10\}$.\\
+		$\{x \in \mathbb{R}^N: |x| \le 10\} = \overline{B}(0,10) \Rightarrow $ es cerrado y acotado $\Rightarrow$ es compacto.\\
+		$\{x \in \mathbb{R}^N: |x| \le 10\} = \overline{B}(0,10) \Rightarrow $ es conexo.
+		\item $\{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$.\\
+		$\{x \in \mathbb{R}^N: 1 \le |x| \le 2\} = \mathbb{R}^N \setminus (\overline{B}^c(0,2) \cup B(0,1)) \Rightarrow \{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$ es cerrado, y como, $|x| \le 2 \Rightarrow \{x \in \mathbb{R}^N: 1 \le |x| \le 2 \}$ es cerrado y acotado $\Rightarrow \{x \in \mathbb{R}^N: 1 \le |x| \le 2 \}$ es compacto.\\
+		$\forall x,y \in \{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$, tenemos que $x=(\rho_x, \theta_x)$, $y=(\rho_y, \theta_y)$, si tomamos $\alpha: [0,1] \rightarrow \mathbb{R}^2$ con $\alpha(0)=(\rho_x, \theta_x)$, $\alpha(1)=(\rho_y, \theta_y)$ y $\alpha(t)=(t\rho_x + (1-t)\rho_y$, $t\theta_x + (1-t)\theta_y) \Rightarrow \{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$ es arcoconexo $\Rightarrow \{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$ es conexo.
+		\item Un subconjunto finito A de $\mathbb{R}^N$.\\
+		Claramente, podemos tomar $M = \max\{||x||: x \in A\}$ y tenemos que $A \subset B(0,M+1) \Rightarrow A$ es acotado. Como $A$ es un conjunto finito de puntos de $\mathbb{R}^N$, podemos tomar $\displaystyle{A =\bigcup_{x \in A} \overline{B}(x,0)} \Rightarrow A$ es cerrado. Por tanto, tenemos que $A$ es cerrado y acotado $\Rightarrow A$ es compacto.\\
+		Claramente, $A$ no es conexo ya que si tomamos $m=\min\{d(x,y): x \neq y$ con $x,y \in A\}$, podemos descomponer $A$ como unión de dos abiertos disjuntos no triviales $A = B\left(x,\frac{m}{2}\right) \cup \overline{B}^c\left(x,\frac{m}{2}\right)$.
+		\item $\{x \in \mathbb{R}^N: |x| = 1\}$.\\
+		Análogo a $\{x \in \mathbb{R}^N: 1 \le |x| \le 2\}$.
+		\item Perímetro de un cuadrado en $\mathbb{R}^2$ de lado unidad.\\
+		Si tomamos $x_o$ como el centro del cuadrado $S$, tenemos que $S \subset B(x_0, 2) \Rightarrow S$ está acotado $\Rightarrow P = \partial S$ está acotado. Como el perímetro $P = \partial S$, y la frontera de un conjunto es cerrada\footnote{Ver apartado siguiente.}, $P$ es cerrado. Tenemos que $P$ es compacto.\\
+		Si tomamos $A$, $B$, $C$ y $D$ como los vértices del cuadrado, tenemos que los lados ($\overline{AB}$, $\overline{BC}$, $\overline{CD}$ y $\overline{DA}$) son convexos. $\forall x,y \in P$, tenemos 3 posibilidades:
+		\begin{itemize}
+			\item $x$ e $y$ están en el mismo lado, entonces, basta tomar $\alpha(t) = tx + (1-t)y$.
+			\item $x$ e $y$ están en lados adyacentes y $V$ es el vértice común a ambos lados, entonces, basta tomar $\alpha$ tal que $\alpha\left(\left[0, \frac{1}{2}\right]\right) = [x,V]$ y $\alpha\left(\left[\frac{1}{2},1\right]\right) = [V,y]$.
+			\item $x$ e $y$ están en lados opuestos y $V$ y $W$ son dos vértices tal que $V$ es vértice del lado donde está $x$, $W$ es vértice del lado donde está $y$, y $\overline{VW} \subset P$, entonces, basta tomar $\alpha$ tal que $\alpha\left(\left[0, \frac{1}{3}\right]\right) = [x,V]$, $\alpha\left(\left[\frac{1}{3}, \frac{2}{3}\right]\right) = [V,W]$ y $\alpha\left(\left[\frac{2}{3},1\right]\right) = [W,y]$.
+		\end{itemize}
+		En cualquier caso, $P = \partial S$ es arcoconexo $\Rightarrow P$ es conexo.
+		\item Frontera $\partial A$ de un conjunto acotado $A \subset \mathbb{R}^N$.\\
+		Como $\partial A = \overline{A} \cap \overline{A}^c$ es cerrada, y como A es acotado, $\partial A$ es acotada $\Rightarrow \partial A$ es compacto.\\
+		Que sea conexo o no, depende de $A$. Ejemplos:
+		\begin{itemize}
+			\item Si $A = \overline{B}(0, 1)$, entonces $\partial A$ es conexo.
+			\item Si $A = \overline{B}(0, 1) \cup \overline{B}(5, 1)$, entonces, podemos tomar dos abiertos disjuntos $B(0,2)$ y $B(5,2)$ tal que $\partial A \subset B(0,2) \cup B(5,2)$, entonces $\partial A$ no es conexo.
+		\end{itemize}
+		\item Un subconjunto cerrado $B$ de un compacto $A \subset \mathbb{R}^N$.\\
+		Como $B \subset A$, $B$ es cerrado y $A$ es compacto $\Rightarrow B \subset A$, $B$ es cerrado y $A$ es acotado $\Rightarrow B$ es cerrado y $B$ es acotado $\Rightarrow B$ es compacto.\\
+		No hay suficiente información para saber si $B$ es conexo o no.
+	\end{enumerate}
+	\item Estudiar la veracidad de cada una de las afirmaciones siguientes:
+	\begin{enumerate}[label=\alph*)]
+		\item Si $A \subset \mathbb{R}^N$ es compacto, entonces $\mathbb{R}^N \setminus A$ es conexo.\\
+		Falso, sea $A=\{x \in \mathbb{R}^N: 1 \le |x| \le 2\} = \mathbb{R}^N \setminus (\overline{B}^c(0,2) \cup B(0,1))$ es compacto\footnote{Ver ejercicio anterior.} pero $A^c=\overline{B}^c(0,2) \cup B(0,1)$ se puede descomponer como unión de los abiertos disjuntos $\overline{B}^c\left(0,\frac{3}{2}\right) \cup B\left(0,\frac{3}{2}\right)$. Por tanto, si $A$ es compacto, $A^c$ no es necesariamente conexo.
+		\item Si $A \subset \mathbb{R}^N$ es conexo, entonces $\mathbb{R}^N$ es conexo.\\
+		Falso, sea $A=\{x \in \mathbb{R}^N: 1 \le |x| \le 2\} = \mathbb{R}^N \setminus (\overline{B}^c(0,2) \cup B(0,1))$ es conexo\footnotemark[5] pero $A^c=\overline{B}^c(0,2) \cup B(0,1)$ se puede descomponer como unión de los abiertos disjuntos $\overline{B}^c\left(0,\frac{3}{2}\right) \cup B\left(0,\frac{3}{2}\right)$. Por tanto, si $A$ es conexo, $A^c$ no es necesariamente conexo.
+		\item Si $A \subset \mathbb{R}^N$ es conexo, entonces $A$ es abierto o cerrado.\\
+		Falso, sean $B(0,1)$ y $\overline{B}(1,1)$, ambas son bolas y, por tanto, conexas. Además, tenemos que la unión de conexos no disjuntos es conexa. Por tanto, $A = B(0,1) \cup \overline{B}(1,1)$ es conexo y $A$ no es ni abierto ni cerrado.
+		\item Si $A=\{x \in \mathbb{R}^N: |x| \le 1\}$, entonces $\mathbb{R}^N \setminus A$ es conexo.\\
+		Verdadero, $A^c = \overline{B}^c(0,1) = \{x \in \mathbb{R}^N: |x| > 1\}$, entonces se tiene que $\forall x,y \in A^c$, tenemos que $x=(\rho_x, \theta_x)$, $y=(\rho_y, \theta_y)$, si tomamos $\alpha: [0,1] \rightarrow \mathbb{R}^2$ con $\alpha(0)=(\rho_x, \theta_x)$, $\alpha(1)=(\rho_y, \theta_y)$ y $\alpha(t)=(t\rho_x + (1-t)\rho_y$, $t\theta_x + (1-t)\theta_y) \Rightarrow A^c$ es arcoconexo $\Rightarrow A^c$ es conexo.
+	\end{enumerate}
+	\item Si $x \in \mathbb{R}^N$ y $A \subset \mathbb{R}^N$, ¿podemos garantizar la existencia de $a \in A$ tal que $d(x,a)=d(x,A)$?\\
+	No, depende del conjunto $A$:
+	\begin{itemize}
+		\item Si $A$ es compacto, como $d(x,y)$ con $x,y \in \mathbb{R}^N$ es continua. Podemos aplicar el \textbf{Teorema de Weierstrass}\footnote{<<Sea $(X,\tau)$ un espacio topológico y $K \subseteq X$ un conjunto compacto. Si $f: K\rightarrow \mathbb{R}$ es una función continua entonces existen $x_1,x_2 \in K$  /  $f(x_1) \leq f(x) \leq f(x_2)$ $\forall x \in K$>>.} sobre el conjunto $A$ y la función $d$ y así tenemos asegurada la existencia de $a$ tal que $d(x,a) = \inf\{d(x,y): y\in A \} = d(x,A)$.
+		\item Si $A$ no es compacto, no tenemos forma de garantizar que el $a$ que verifica $d(x,a) = \inf\{d(x,y): y\in A \} = d(x,A)$ pertenezca a $A$.
+	\end{itemize}
+	\item Sea $A \subset \mathbb{R}^N$ un conjunto abierto no vacío y distinto de $\mathbb{R}^N$. Para cada $k \in \mathbb{N}$ se define:
+	\begin{center}
+		$K_k = \left\{ x \in A: |x| \le k, d(x,\mathbb{R}^N \setminus A) \ge \frac{1}{k}\right\}$
+	\end{center}
+	Probad que:
+	\begin{enumerate}[label=\alph*)]
+		\item $K_k$ es compacto y $K_k \subset \accentset{\circ}K_{k+1}$.
+		\begin{proof}
+			Usando la notación del ejercicio $1)$, podemos definir $K_k$ como $K_k = \left\{\{x \in A: |x| \le k, x \in D^c\left(A^c, \frac{1}{k}\right)\right\}$, con esta notación, podemos ver que $K_k$ es intersección de 2 conjuntos cerrados $K_k = \overline{B}(0,k) \cap D^c\left(A^c,\frac{1}{k}\right) \Rightarrow K_k$ es cerrado.\\
+			Como además, $\forall x \in K_k \Rightarrow x \in \overline{B}(0,k) \Rightarrow K_k$ está acotado.\\
+			Por tanto, se tiene que $K_k$ es compacto.\\
+			
+			Claramente, tenemos que:
+			\begin{itemize}
+				\item $K_k = \overline{B}(0,k) \cap D^c\left(A^c,\frac{1}{k}\right) \supset Int(\overline{B}(0,k)) \cap \accentset{\circ}D^c\left(A^c,\frac{1}{k}\right)$.
+				\item $\overline{B}(0,k) \subset Int(\overline{B}(0,k+1))=B(0,k+1)$.
+				\item $D^c(A^c,\frac{1}{k}) \subset Int\left(\mathbb{R}^N \setminus D\left(A^c,\frac{1}{k+1}\right)\right) = \mathbb{R}^N \setminus \overline{D}\left(A^c,\frac{1}{k+1}\right) = \mathbb{R}^N \setminus N\left(A^c,\frac{1}{k+1}\right) = N^c\left(A^c,\frac{1}{k+1}\right)$.
+			\end{itemize}
+			
+			Entonces, se tiene que:
+			\begin{itemize}
+				\item $K_k = \overline{B}(0,k) \cap D^c\left(A^c,\frac{1}{k}\right) \subset \overline{B}(0,k) \subset B(0,k+1)$.
+				\item $K_k = \overline{B}(0,k) \cap D^c\left(A^c,\frac{1}{k}\right) \subset D^c\left(A^c,\frac{1}{k}\right) \subset N^c\left(A^c,\frac{1}{k+1}\right)$.
+				\item Por tanto, $K_k \subset B(0,k+1) \cap N^c\left(A^c,\frac{1}{k+1}\right)$.
+			\end{itemize}
+			
+			Como el interior de la intersección de 2 conjuntos es la intersección de sus interiores\footnotemark[8], tenemos $B(0,k+1) \cap N^c\left(A^c,\frac{1}{k+1}\right) = \accentset{\circ}K_{k+1}$.
+			\footnotetext[8]{Vamos a probar 3 propiedades de interiores de conjuntos:
+				\begin{itemize}
+					\item Si $A \subset B \Rightarrow \accentset{\circ}A \subset \accentset{\circ}B$.
+					\begin{proof}
+						$\forall x \in \accentset{\circ}A \Rightarrow \exists r > 0$  /  $B(x,r) \subset A \subset B \Rightarrow x \in \accentset{\circ}B$.
+					\end{proof}
+					\item Si $Int(\accentset{\circ}A \cap \accentset{\circ}B) = \accentset{\circ}A \cap \accentset{\circ}B$.
+					\begin{proof}
+						\fbox{$\subset$} Trivial.\\
+						\fbox{$\supset$} $\forall x \in \accentset{\circ}A \cap \accentset{\circ}B \Rightarrow x \in \accentset{\circ}A\Rightarrow \exists r_1 > 0$  /  $B(x,r_1) \subset \accentset{\circ}A$.\\
+						$\forall x \in \accentset{\circ}A \cap \accentset{\circ}B \Rightarrow x \in \accentset{\circ}B \Rightarrow \exists r_2 > 0$  /  $B(x,r_2) \subset \accentset{\circ}B$.\\
+						Por tanto, tenemos que $\forall x \in \accentset{\circ}A \cap \accentset{\circ}B \Rightarrow \exists r = \min\{r_1,r_2\} > 0$  /  $B(x,r) \subset \accentset{\circ}A \cap \accentset{\circ}B \Rightarrow x \in Int(\accentset{\circ}A \cap \accentset{\circ}B)$.
+					\end{proof}
+				\item $Int(A \cap B) = \accentset{\circ}A \cap \accentset{\circ}B$.
+					\begin{proof}
+						\fbox{$\subset$} $Int(A \cap B) \subset \accentset{\circ}A$.\\
+						$Int(A \cap B) \subset \accentset{\circ}B$.\\
+						Por tanto, $Int(A \cap B) \subset \accentset{\circ}A \cap \accentset{\circ}B$.\\
+						\fbox{$\supset$} $\forall x \in \accentset{\circ}A \cap \accentset{\circ}B \Rightarrow x \in A \cap B \Rightarrow \accentset{\circ}A \cap \accentset{\circ}B \subset A \cap B \Rightarrow Int(\accentset{\circ}A \cap \accentset{\circ}B) = \accentset{\circ}A \cap \accentset{\circ}B \subset Int(A \cap B)$.
+					\end{proof}
+				\end{itemize}
+			}
+		\end{proof}
+		\item $\displaystyle{\bigcup_{k=1}^\infty K_k = A}$.
+		\begin{proof}
+			\fbox{$\subset$} Trivialmente, $K_k \in A$ $\forall k \in \mathbb{N}$ por la definición de $K_k \Rightarrow \displaystyle{\bigcup_{k=1}^\infty} K_k \subset A$.\\
+			\fbox{$\supset$} Supongamos que $\displaystyle{\bigcup_{k=1}^\infty} K_k \neq A$.\\
+			Entonces, tenemos que $\exists x \in A \setminus \displaystyle{\bigcup_{k=1}^\infty} K_k$.\\
+			Como $A$ es abierto $\Rightarrow \exists r > 0$  /  $B(x,r) \subset A \Rightarrow d(x, A^c) \ge r > 0$.\\
+			Tomando $k_1 = \left\lfloor \frac{1}{r} \right\rfloor +1 \Rightarrow d(x,A^c) \ge r > \frac{1}{k_1} > 0 \Rightarrow x \in D^c\left(A^c, \frac{1}{k_1}\right)$.\\
+			Tomando $k_2 = \lfloor$ $|x|$ $\rfloor +1 \Rightarrow x \in \overline{B}(0,k_2)$.\\
+			Tomando $k = \max\{k_1, k_2\}$, se tiene que:\\
+			\begin{itemize}
+				\item $x \in D^c\left(A^c, \frac{1}{k} \right)$.
+				\item $x \in \overline{B}(0,k)$.
+			\end{itemize}
+			
+			Por tanto, $x \in D^c\left(A^c, \frac{1}{k} \right) \cap \overline{B}(0,k) = K_k \subset \displaystyle{\bigcup_{k=1}^\infty K_k}$.\\
+			Y llegamos a una contradicción.\\
+		\end{proof}
+		\item Si $K \subset A$ es compacto, existe $p \in \mathbb{N}$ tal que $K \subset K_p$.
+		\begin{proof}
+			$K$ compacto $\Rightarrow \exists r > 0$  /  $K \subset B(0, r) \subset \overline{B}(0,r)$.\\
+			Tomamos $p_1 = \lfloor r \rfloor + 1 \Rightarrow K \subset \overline{B}(0, p_1)$.\\
+			Como los conjuntos $K$ y $A^c$ son cerrados, $d(K, A^c) = \min\{d(x,y): x \in K, y \in A^c\}$, tomamos $p_2 = \left\lfloor \frac{1}{d(K, A^c)} \right \rfloor + 1 \Rightarrow K \subset D^c\left(A^c, \frac{1}{p_2}\right)$.\\
+			Por tanto, basta tomar $p = \max\{p_1,p_2\}$, se tiene que:\\
+			\begin{itemize}
+				\item $K \subset D^c\left(A^c, \frac{1}{p} \right)$.
+				\item $K \subset \overline{B}(0,p)$.
+			\end{itemize}
+			
+			Por tanto, $K \subset D^c\left(A^c, \frac{1}{p} \right) \cap \overline{B}(0,p) = K_p$.\\
+		\end{proof}
+	\end{enumerate}
+	\item Probar que $\mathbb{R}^N$ es completo.
+	\begin{proof}
+		Para ello, probaremos primero que $\{\mathbb{R}^N, ||\cdot||_2\}$ es completo:
+		\begin{proof}
+			Tenemos que una sucesión $\{x_n\}$ convergente $\Rightarrow \{x_n\}$ es de Cauchy.\\
+			Dada una sucesión $\{x_n\}$ de Cauchy $\accentset{\footnotemark[9]}\Leftrightarrow \{x_n^k\}$ es de Cauchy $\forall k \in \{1,\dots,N\} \accentset{\footnotemark[10]}\Leftrightarrow \{x_n^k\}$ es convergente $\forall k \in \{1,\dots,N\} \accentset{\footnotemark[9]}\Leftrightarrow \{x_n\}$ es convergente.\\
+			Por tanto, tenemos que $\{\mathbb{R}^N, ||\cdot||_2\}$ es completo.
+			\footnotetext[9]{Visto en clase.}
+			\footnotetext[10]{Por el Teorema de Complitud de $\mathbb{R}$.}
+		\end{proof}
+		
+		También debemos demostrar el \textbf{Teorema de Hausdorff} restringido a $\mathbb{R}^N$, para el cual necesitaremos una definición previa:
+		\begin{mydef}
+			Dos normas $|||\cdot|||$ y $||\cdot||$ en un mismo espacio vectorial $X$ se dicen equivalentes si existen constantes $m,M>0$ verificando:
+			\begin{center}
+				$m ||x|| \le |||x||| \le M ||x||$, $\forall x \in X$.
+			\end{center}
+		\end{mydef}
+		
+		\begin{theorem}[Teorema de Hausdorff restringido a $\mathbb{R}^N$]
+			Todas las normas en el espacio vectorial $\mathbb{R}^N$ de dimensión finita son equivalentes.
+		\end{theorem}
+		
+		\begin{proof}
+			Probaremos aquí que si $|||\cdot|||$ es una norma arbitraria en $\mathbb{R}^N$, entonces es equivalente a la norma euclídea $||\cdot||_2$. Una vez hecho esto, trasladaremos el resultado a cualquier espacio vectorial de dimensión finita.
+			\begin{enumerate}[label=\arabic*)]
+				\item Tomando la base canónica \{$e_1, e_2,\dots,e_N$\}, llamamos $k=max\{|||e_i|||: i = 1,2,\dots,N\}$. \\
+				$\forall x \in \mathbb{R}^N$ se tiene que $|||x||| = \left|\left|\left|\sum_{i=1}^{N} x_i e_i\right|\right|\right| \le \sum_{i=1}^{N} |x_i| \cdot |||e_i||| \le k \sum_{i=1}^{N} |x_i| \le nk||x||_2$.
+				\item Sea $S = \{x \in \mathbb{R}^N: ||x||_2 = 1\}$. Definimos $m = \inf \{|||x|||: x \in S\} \ge 0$. Queremos probar que $m$ es un mínimo.
+				\begin{enumerate}[label=\alph*)]
+					\item Sabemos que existe una sucesión de elementos de $S$ tal que $\{|||x_n|||\} \rightarrow m$ con $x_n \in S$.\\
+					Por el \textbf{Teorema de Bolzano-Weierstrass}\footnote[11]{<<Toda sucesión acotada de puntos de $(\mathbb{R}^N,||\cdot||_2)$ tiene alguna sucesión parcial convergente en $(\mathbb{R}^N, ||\cdot||_2)$>>.} sabemos que existen $x_0 \in \mathbb{R}^N$ y parcial $\{x_{\sigma(n)}\}$ tales que $\{x_{\sigma(n)}\} \accentset{||\cdot||_2} \rightarrow x_0$.
+					\item Por lo que hemos probado en 1) y como $|$ $||x||-||y||$ $| \le ||x-y||$, tenemos que $|||x_{\sigma(n)}-x_0||| \le M ||x_{\sigma(n)}-x_0||_2 \rightarrow 0$, con lo que $\{x_{\sigma(n)}\} \accentset{|||\cdot|||} \rightarrow x_0$. Como $\{|||x_{\sigma(n)}|||\}$ converge a $|||x_0||| > 0$ y a $m$, se tiene que $||x_0|| = m > 0$. Tenemos así que $\forall x \in S$, $|||x||| \ge m > 0$.
+					\item Tomando $x \neq 0$, tenemos que $\left|\left| \frac{x}{||x||_2} \right|\right|_2 = 1 \Rightarrow \left|\left|\left| \frac{x}{||x||_2} \right|\right|\right| \ge m \Rightarrow |||x||| \ge ||x||_2$.
+				\end{enumerate}
+				
+				Queda así demostrado que $\forall x \in \mathbb{R}^N$ $\exists m, M$  /  $m||x||_2 \le |||x||| \le M||x||_2$, lo que prueba la equivalencia de todas las normas en $\mathbb{R}^N$.
+			\end{enumerate}
+		\end{proof}
+		
+		Como se tiene que $(\mathbb{R}^N, ||\cdot||_2)$ es completo y que todas las normas son equivalentes en $\mathbb{R}^N$, se tiene que $\mathbb{R}^N$ es completo con cualquier norma.
+	\end{proof}
+	\item Sea $A \subset \mathbb{R}^N$ un compacto y $\{x_n\} \subset A$ una sucesión de Cauchy. Probad que $\{x_n\}$ es convergente a un punto de $A$.
+	\begin{proof}
+		Dado que $\mathbb{R}^N$ es completo\footnote[12]{Ver ejercicio anterior.}, la sucesión $\{x_n\}$ es convergente, y como $A$ es compacto, usando la definición\footnote[13]{<<Un subconjunto $K$ de un espacio métrico se dice que es compacto si toda sucesión de puntos de $K$ tiene alguna sucesión parcial que converge a un punto de $K$>>.} tenemos que $\exists \sigma: \mathbb{N} \rightarrow \mathbb{N}$ creciente tal que $\{x_{\sigma(n)}\} \rightarrow L$ con $L \in A$. Por tanto, como el límite de una sucesión convergente debe coincidir con el límite de cualquiera de sus parciales, se tiene que $\{x_n\} \rightarrow L$ con $L \in A$.
+	\end{proof}
+	\item Un subconjunto $A \subset \mathbb{R}^N$ se dice discreto si todos sus puntos son aislados(es decir, si $\forall x \in A$ $\exists \varepsilon > 0$ tal que $A \cap B(x,\varepsilon) = \{x\}$). Probad que un conjunto discreto es compacto $\Leftrightarrow$ es finito.
+	\begin{proof}
+		\fbox{$\Leftarrow$} Como vimos en el ejercicio 2, un subconjunto finito de $\mathbb{R}^N$ es compacto.\\
+		\fbox{$\Rightarrow$} Como $K$ es discreto, $\forall x \in A$ $\exists \varepsilon > 0$  /  $A \cap B(x,\varepsilon) = \{x\}$. Podemos formar el recubrimiento por abiertos $\{B(x, \varepsilon_x): x \in K$ con $\varepsilon_x = \min\{d(x,y): y \in K\}\}$.\\
+		Ahora, como $K$ es compacto, tomando el recubrimiento por abiertos anteriormente descrito, podemos encontrar un recubrimiento finito $\{B(x_i, \varepsilon): i \in \mathbb{N}\}$ de $K$.\\
+		Por tanto, $K$ tiene que ser finito.
+	\end{proof}
+	\item Si $K_1 \subset \mathbb{R}^N$ y $K_2 \subset \mathbb{R}^M$ son arcoconexos(respectivamente, conexos, compactos), probad que $K_1 \times K_2$ es arcoconexo(respectivamente, conexo, compacto).\\
+	Incompleto.
+\end{enumerate}
+
+\end{document}
